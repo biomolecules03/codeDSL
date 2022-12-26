@@ -1,0 +1,212 @@
+//Ankit Gyandev More 
+//SE COMP B
+//roll no. 9
+
+#include<bits/stdc++.h>
+using namespace std ;
+
+
+
+string name ,prn;
+
+class node{
+    public:
+    string name;
+    string prn;
+    node *next;
+    node(){
+        prn = '0';
+        name = "";
+        next = NULL;
+    }
+};
+void end_insert(node **head_ref , string namedata, string prndata){
+   node * newnode = new node();
+   newnode->name = namedata;
+   newnode->prn = prndata;
+   newnode->next = NULL;
+   node * end = *head_ref;
+
+   if(*head_ref==NULL){
+       *head_ref = newnode;
+       return ;
+   }
+   while(end->next!=NULL){
+       end = end->next;
+   }
+   end->next = newnode;
+   return;
+}
+
+node* EnterTheList(node * &head){
+    int n;
+    cout<<"\nEnter the number Of Entries : ";
+        cin>>n;
+        int i=n;
+        while(i>0){
+            if(i==n ){
+                cout<<"\nEnter PRN of President of : ";
+                cin>>prn;
+                cin.ignore();
+                cout<<"Enter Name of President : ";
+                getline(cin, name);
+                
+            }
+            else if(i==1){
+                cout<<"\nEnter PRN of Secretary : ";
+                cin>>prn;
+                cin.ignore();
+                cout<<"Enter Name of Secretary : ";
+                getline(cin, name);
+            }
+            else{
+                cout<<"\nEnter PRN of member : ";
+                cin>>prn;
+                cin.ignore();
+                cout<<"Enter Name of member : ";
+                getline(cin, name);
+            }
+
+            end_insert(&head, name, prn);
+            i--;
+            
+        }
+        return head;
+        
+}
+
+
+
+void deletion(node **head_ref, string target){
+    node *temp, *prev;
+    temp = *head_ref;
+
+    if(temp->name==target){
+        *head_ref = temp ->next;
+        free(temp);
+        return;
+    }
+
+    while(temp != NULL && temp->name!=target){
+        prev = temp;
+        temp = temp ->next;
+    }
+
+    if(temp==NULL){
+        return;
+    }
+
+    prev->next= temp->next;
+    free(temp);
+}
+
+
+
+void total_number(node* n){
+    int num=0;
+    while(n!=NULL){
+        n = n->next;
+        num++;
+    }
+    cout<<"\nTotal number of members of club : "<<num<<endl;
+}
+
+node* ReverseList(node* &head){
+
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+
+    node* newhead = ReverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+    
+    return newhead;
+}
+
+
+void Concatenate(node *&div1, node *&div2){
+    node * temp = div1;
+    while(temp->next!=NULL){
+        temp = temp->next;
+    }
+    temp->next = div2;
+   
+}
+
+
+void printList(node* n){
+    cout<<"\n"<< left<< setw(20)<< "NAME"<< left<< setw(5)<<"PRN"<<endl<<endl;
+    while(n!=NULL){
+    cout<< left<< setw(20)<< n->name<< left<< setw(5)<<n->prn<<endl;
+        n = n->next;
+    }
+}
+
+int main(){
+    node *head = NULL,*newhead;
+    bool flag = true;
+    int ch;
+    while(flag){
+
+    cout<<"\n\n ---------------- MENU ---------------- \n\n";
+
+    cout<<" 1. Add Entry to Pinnacle Club\n";
+    cout<<" 2. Display the Members of the Club\n";
+    cout<<" 3. Compute total number of members of club\n";
+    cout<<" 4. Delete from the Pinnacle Club\n";
+    cout<<" 5. Display list in reverse order\n";
+    cout<<" 6. Concatenate two lists\n";
+    cout<<" 7. Exit\n";
+
+    cout<<"\nEnter Choice : ";
+    cin>>ch;
+
+    
+    if(ch==1)   EnterTheList(head);
+    
+    if(ch==2)   printList(head);
+    
+    if(ch==3)   total_number(head);
+
+    if(ch==4){
+    string ch;
+    cout<<"\nEnter name of member to be deleted : ";
+    cin.ignore();
+    getline(cin , name);
+    deletion(&head, name);
+    }
+
+    if(ch==5){
+        cout<<"\nReverse ordered list : \n";
+        newhead = ReverseList(head);
+        printList(newhead);
+        head = newhead;
+    }
+
+    if(ch==6){
+        node * div1_head=NULL, *div2_head=NULL, *finalList;
+
+        cout<<"\n\n**** Entries of div 1 ****\n\n";
+        EnterTheList(div1_head);
+        printList(div1_head);
+
+        cout<<"\n\n**** Entries of div 2 ****\n\n";
+        EnterTheList(div2_head);
+        printList(div2_head);
+
+        cout<<"\n\n**** Final List ****\n\n";
+        Concatenate(div1_head,div2_head);
+        printList(div1_head);
+        head = div1_head;
+
+    }
+
+    if(ch==7){
+        cout<<"\n\nThank you \n\n";
+        flag = false;
+        exit(0);
+    }
+
+    }
+}
