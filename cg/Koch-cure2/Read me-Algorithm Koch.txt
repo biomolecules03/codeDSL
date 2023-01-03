@@ -1,0 +1,31 @@
+Algorithm:
+
+Input to the algorithm:
+
+Direction(angle), length and iteration for drawing the Koch curve .
+Output of the algorithm
+Displaying the Koch Curve.
+Data Variables
+oldx, oldy : are static float coordinates for the vertex of triangle.
+dir
+: stores the angle of line segment.
+len
+: stores the length of line segment.
+iter
+: stores the number of iterations performed on triangle to produce th koch curve.
+dirRad : calculates radians of angle using dir.
+newX, newY : calculates new vertex coordinates for cuvre using oldx and oldy by
+performing cosine and sine operations on dirRad.
+Algorithm
+1. Start
+2. oldx=-0.7, oldy=0.5;
+3. input dir, len and iter
+4. dirRad = 0.0174533 * dir;
+5. newX = oldx + len * cos(dirRad);
+6. newY = oldy + len * sin(dirRad);
+7. if (iter==0) { oldx = newX, oldy = newY; }
+else{ decrement iter;
+drawkoch(dir, len, iter) with dir as 60, -120 and 60 degrees; }
+8. goto step no 7
+9. Stop.
+Output: Display koch curve.
