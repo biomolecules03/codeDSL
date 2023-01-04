@@ -1,0 +1,6 @@
+Name : Sahil
+ID : 123
+Salary : 9000
+Name : Kamate
+ID : 1233
+Salary : 90000
